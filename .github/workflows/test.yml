@@ -19,6 +19,9 @@ jobs:
         tf_version: ["0.15.0", "1.0.0", "1.0.9"]
 
     steps: 
+      - name: Checkout
+        uses: actions/checkout@v2
+        
       - name: Setup Terraform v${{ matrix.tf_version }}
         uses: hashicorp/setup-terraform@v1
         with:
