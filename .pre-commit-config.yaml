@@ -1,0 +1,17 @@
+repos:
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.15
+    hooks:
+      - id: terraform-fmt
+        name: Formatting
+      - id: terraform-validate
+        name: Run Terraform Validate
+      - id: tflint
+        name: Run Terraform Lint (tflint)
+
+  - repo: https://github.com/terraform-docs/terraform-docs
+    rev: v0.15.0
+    hooks:
+      - id: terraform-docs-go
+        args: ["--output-file", "DOCS.md", "markdown", "./"]
+        name: Auto documentation on ./

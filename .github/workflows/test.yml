@@ -1,0 +1,36 @@
+name: Terratest
+
+on:
+  pull_request:
+    branches: 
+      - master
+    paths-ignore:
+      - '**/README.md'
+      - '.github/**'
+  workflow_dispatch:
+    
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      
+      matrix:
+        tf_version: ["0.15.0", "1.0.0", "1.0.9"]
+
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform v${{ matrix.tf_version }}
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
+          terraform_version: ${{ matrix.tf_version }}
+    
+      - name: Show Terraform Version
+        run: terraform -v
+
+      - name: Test with Terratest
+        run: go test ./test/ -v
